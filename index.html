@@ -14,32 +14,33 @@ body {
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   color: #333;
   line-height: 1.6;
+  font-size: 16px;
 }
 
 header {
   background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
   color: white;
-  padding: 2rem;
+  padding: 2.5rem 2rem;
   text-align: center;
   box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
 header h1 {
-  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-size: 2.5rem;
   font-weight: 600;
   text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
 section {
   margin: 2rem auto;
-  width: 95%;
+  width: 90%;
   max-width: 1400px;
   padding: 0 1rem;
 }
 
 .card {
   background: white;
-  padding: clamp(1rem, 3vw, 2rem);
+  padding: 2rem;
   margin-bottom: 2rem;
   border-radius: 16px;
   box-shadow: 0 8px 24px rgba(0,0,0,0.12);
@@ -55,9 +56,72 @@ section {
 h2 {
   color: #2c3e50;
   margin: 0 0 1.5rem 0;
-  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-size: 1.85rem;
+  font-weight: 600;
   padding-bottom: 0.75rem;
   border-bottom: 3px solid #3498db;
+}
+
+/* GRID DE RESUMEN - ESCRITORIO */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.5rem;
+  text-align: center;
+}
+
+.summary-box {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 2rem 1.5rem;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  min-height: 140px;
+}
+
+.summary-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.summary-box b {
+  display: block;
+  font-size: 2.5rem;
+  margin-top: 0.75rem;
+  font-weight: 700;
+  line-height: 1.2;
+}
+
+.summary-box:last-child {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+/* CONTENEDORES DE GRÁFICOS - ESCRITORIO */
+.chart-container {
+  position: relative;
+  margin: 2rem auto;
+  width: 100%;
+  max-width: 700px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.chart-container-doughnut {
+  height: 450px;
+  max-width: 600px;
+}
+
+.chart-container canvas {
+  max-width: 100% !important;
+  height: auto !important;
 }
 
 /* TABLAS RESPONSIVAS */
@@ -72,16 +136,17 @@ h2 {
 table {
   width: 100%;
   border-collapse: collapse;
-  min-width: 600px;
-  font-size: clamp(0.75rem, 2vw, 0.95rem);
+  min-width: 700px;
+  font-size: 0.95rem;
 }
 
 th {
   background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
   color: white;
-  padding: 1rem 0.75rem;
+  padding: 1rem 0.875rem;
   text-align: left;
   font-weight: 600;
+  font-size: 1rem;
   position: sticky;
   top: 0;
   z-index: 10;
@@ -90,9 +155,10 @@ th {
 
 td {
   background: white;
-  padding: 0.875rem 0.75rem;
+  padding: 0.875rem;
   border-bottom: 1px solid #ecf0f1;
   transition: background-color 0.2s ease;
+  font-size: 0.95rem;
 }
 
 tr:hover td {
@@ -103,204 +169,11 @@ tr:last-child td {
   border-bottom: none;
 }
 
-/* GRID DE RESUMEN */
-.summary-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 1.25rem;
-  text-align: center;
-}
-
-.summary-box {
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-  color: white;
-  padding: 1.75rem 1rem;
-  border-radius: 12px;
-  font-size: clamp(0.95rem, 2.5vw, 1.125rem);
-  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
-  transition: transform 0.3s ease, box-shadow 0.3s ease;
-}
-
-.summary-box:hover {
-  transform: translateY(-6px);
-  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
-}
-
-.summary-box b {
-  display: block;
-  font-size: clamp(1.5rem, 4vw, 2.25rem);
-  margin-top: 0.5rem;
-  font-weight: 700;
-}
-
-/* GRÁFICOS RESPONSIVOS */
-.chart-container {
-  position: relative;
-  margin: 1.5rem auto;
-  max-width: 700px;
-  height: 300px;
-}
-
-canvas {
-  max-width: 100%;
-  height: auto !important;
-}
-
-/* ESTADO DEL DISCO */
-.summary-box:last-child {
-  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
-}
-
-/* SCROLL SUAVE */
-html {
-  scroll-behavior: smooth;
-}
-
-/* RESPONSIVE BREAKPOINTS */
-@media (max-width: 768px) {
-  header {
-    padding: 1.5rem 1rem;
-  }
-  
-  section {
-    width: 98%;
-    padding: 0 0.5rem;
-  }
-  
-  .card {
-    padding: 1rem;
-    margin-bottom: 1.5rem;
-    border-radius: 12px;
-  }
-  
-  .summary-grid {
-    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
-    gap: 1rem;
-  }
-  
-  .summary-box {
-    padding: 1.25rem 0.75rem;
-  }
-  
-  table {
-    font-size: 0.75rem;
-    min-width: 500px;
-  }
-  
-  th, td {
-    padding: 0.625rem 0.5rem;
-  }
-  
-  .chart-container {
-    height: 250px;
-  }
-}
-
-@media (max-width: 480px) {
-  .summary-grid {
-    grid-template-columns: 1fr;
-  }
-  
-  table {
-    min-width: 400px;
-    font-size: 0.7rem;
-  }
-  
-  th, td {
-    padding: 0.5rem 0.375rem;
-  }
-  
-  .chart-container {
-    height: 220px;
-  }
-}
-
-/* ANIMACIONES DE CARGA */
-@keyframes fadeIn {
-  from {
-    opacity: 0;
-    transform: translateY(20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.card {
-  animation: fadeIn 0.6s ease-out;
-}
-
-/* MEJORA DE ACCESIBILIDAD */
-:focus {
-  outline: 2px solid #3498db;
-  outline-offset: 2px;
-}
-
-/* SCROLLBAR PERSONALIZADA */
-.table-wrapper::-webkit-scrollbar {
-  height: 8px;
-}
-
-.table-wrapper::-webkit-scrollbar-track {
-  background: #f1f1f1;
-  border-radius: 4px;
-}
-
-.table-wrapper::-webkit-scrollbar-thumb {
-  background: #888;
-  border-radius: 4px;
-}
-
-.table-wrapper::-webkit-scrollbar-thumb:hover {
-  background: #555;
-}
-/* MEJORA DE ESPACIADO ENTRE GRÁFICOS */
-.chart-container {
-  position: relative;
-  margin: 2rem auto;
-  max-width: 700px;
-  height: 350px;
-  padding-bottom: 2rem;
-}
-
-.chart-container canvas {
-  max-width: 100%;
-  height: auto !important;
-}
-
-/* Contenedor especial para gráfico circular */
-.chart-container-doughnut {
-  height: 400px;
-  margin-bottom: 3rem;
-}
-
-/* SECCIÓN PLEGABLE */
-.collapsible-section {
-  display: none;
-  animation: slideDown 0.4s ease-out;
-}
-
-.collapsible-section.active {
-  display: block;
-}
-
-@keyframes slideDown {
-  from {
-    opacity: 0;
-    transform: translateY(-20px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
 /* BOTÓN MOSTRAR MÁS */
 .toggle-btn {
   display: block;
-  margin: 2rem auto;
-  padding: 1rem 2.5rem;
+  margin: 3rem auto;
+  padding: 1.125rem 3rem;
   background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
   color: white;
   border: none;
@@ -327,6 +200,7 @@ html {
 .toggle-btn::after {
   content: ' ▼';
   display: inline-block;
+  margin-left: 0.5rem;
   transition: transform 0.3s ease;
 }
 
@@ -334,75 +208,265 @@ html {
   transform: rotate(180deg);
 }
 
-/* TAMAÑOS DE FUENTE MEJORADOS */
-body {
-  font-size: 16px;
+/* SECCIÓN PLEGABLE */
+.collapsible-section {
+  display: none;
+  animation: slideDown 0.4s ease-out;
 }
 
-h2 {
-  font-size: clamp(1.4rem, 3.5vw, 1.85rem);
+.collapsible-section.active {
+  display: block;
 }
 
-th {
-  font-size: clamp(0.85rem, 2.2vw, 1rem);
+@keyframes slideDown {
+  from {
+    opacity: 0;
+    transform: translateY(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
-td {
-  font-size: clamp(0.8rem, 2vw, 0.95rem);
+/* SCROLL SUAVE */
+html {
+  scroll-behavior: smooth;
 }
 
-.summary-box {
-  font-size: clamp(1rem, 2.8vw, 1.2rem);
+:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
 }
 
-.summary-box b {
-  font-size: clamp(1.75rem, 4.5vw, 2.5rem);
+.table-wrapper::-webkit-scrollbar {
+  height: 10px;
 }
 
-/* RESPONSIVE MEJORADO */
+.table-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 5px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 5px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #555;
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - TABLET
+   ======================================== */
+@media (max-width: 1024px) {
+  header h1 {
+    font-size: 2rem;
+  }
+  
+  h2 {
+    font-size: 1.6rem;
+  }
+  
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  
+  .summary-box {
+    min-height: 130px;
+    font-size: 1rem;
+  }
+  
+  .summary-box b {
+    font-size: 2.25rem;
+  }
+}
+
+/* ========================================
+   RESPONSIVE DESIGN - MÓVIL
+   ======================================== */
 @media (max-width: 768px) {
+  body {
+    font-size: 15px;
+  }
+  
+  header {
+    padding: 1.75rem 1rem;
+  }
+  
+  header h1 {
+    font-size: 1.75rem;
+    line-height: 1.3;
+  }
+  
+  section {
+    width: 95%;
+    padding: 0 0.5rem;
+    margin: 1.5rem auto;
+  }
+  
+  .card {
+    padding: 1.5rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  h2 {
+    font-size: 1.4rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  /* GRID 2x2 EN MÓVIL */
+  .summary-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1rem;
+  }
+  
+  .summary-box {
+    padding: 1.25rem 0.75rem;
+    font-size: 0.9rem;
+    min-height: 110px;
+    border-radius: 10px;
+  }
+  
+  .summary-box b {
+    font-size: 1.85rem;
+    margin-top: 0.5rem;
+  }
+  
+  /* GRÁFICOS MÁS GRANDES EN MÓVIL */
   .chart-container {
-    height: 320px;
-    margin-bottom: 2.5rem;
-    padding-bottom: 1.5rem;
+    height: 350px;
+    max-width: 100%;
+    margin: 1.5rem auto;
+    padding: 0 0.5rem;
   }
   
   .chart-container-doughnut {
     height: 380px;
-    margin-bottom: 3.5rem;
+    max-width: 100%;
   }
   
+  /* TABLAS EN MÓVIL */
+  table {
+    min-width: 600px;
+    font-size: 0.875rem;
+  }
+  
+  th {
+    padding: 0.75rem 0.625rem;
+    font-size: 0.9rem;
+  }
+  
+  td {
+    padding: 0.75rem 0.625rem;
+    font-size: 0.875rem;
+  }
+  
+  /* BOTÓN EN MÓVIL */
   .toggle-btn {
-    padding: 0.875rem 2rem;
+    padding: 1rem 2.25rem;
     font-size: 1rem;
-    width: 90%;
-    max-width: 300px;
-  }
-  
-  body {
-    font-size: 15px;
+    margin: 2rem auto;
+    width: 85%;
+    max-width: 320px;
   }
 }
 
+/* ========================================
+   RESPONSIVE DESIGN - MÓVIL PEQUEÑO
+   ======================================== */
 @media (max-width: 480px) {
-  .chart-container {
-    height: 280px;
-    margin-bottom: 2rem;
-  }
-  
-  .chart-container-doughnut {
-    height: 350px;
-    margin-bottom: 3rem;
-  }
-  
-  .toggle-btn {
-    padding: 0.75rem 1.5rem;
-    font-size: 0.95rem;
-  }
-  
   body {
     font-size: 14px;
   }
+  
+  header {
+    padding: 1.5rem 0.75rem;
+  }
+  
+  header h1 {
+    font-size: 1.5rem;
+  }
+  
+  section {
+    width: 98%;
+    padding: 0 0.25rem;
+  }
+  
+  .card {
+    padding: 1.25rem;
+    margin-bottom: 1.25rem;
+  }
+  
+  h2 {
+    font-size: 1.25rem;
+    margin-bottom: 1rem;
+  }
+  
+  .summary-grid {
+    gap: 0.875rem;
+  }
+  
+  .summary-box {
+    padding: 1rem 0.5rem;
+    font-size: 0.825rem;
+    min-height: 100px;
+  }
+  
+  .summary-box b {
+    font-size: 1.65rem;
+  }
+  
+  .chart-container {
+    height: 320px;
+    padding: 0 0.25rem;
+  }
+  
+  .chart-container-doughnut {
+    height: 340px;
+  }
+  
+  table {
+    min-width: 500px;
+    font-size: 0.8rem;
+  }
+  
+  th {
+    padding: 0.625rem 0.5rem;
+    font-size: 0.825rem;
+  }
+  
+  td {
+    padding: 0.625rem 0.5rem;
+    font-size: 0.8rem;
+  }
+  
+  .toggle-btn {
+    padding: 0.875rem 1.75rem;
+    font-size: 0.925rem;
+    width: 90%;
+  }
+}
+
+/* ========================================
+   ANIMACIONES DE CARGA
+   ======================================== */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeIn 0.6s ease-out;
 }
 </style>
 </head>
@@ -424,62 +488,67 @@ td {
 </div>
 
 <div class='card'>
-<h2>Uso del disco</h2>
-<div class="chart-container chart-container-doughnut">
-  <canvas id='chartEspacio'></canvas>
-</div>
+  <h2>Uso del disco</h2>
+  <div class="chart-container chart-container-doughnut">
+    <canvas id='chartEspacio'></canvas>
+  </div>
 </div>
 
+
 <div class='card'>
-<h2>Distribución de archivos por año</h2>
-<div class="chart-container">
-  <canvas id='chartAnios'></canvas>
-</div>
+  <h2>Distribución de archivos por año</h2>
+  <div class="chart-container">
+    <canvas id='chartAnios'></canvas>
+  </div>
 </div>
 
 <!-- BOTÓN PARA MOSTRAR MÁS -->
 <button class="toggle-btn" onclick="toggleDetails(this)">Mostrar más</button>
 
 <div class="collapsible-section" id="detailedReport">
+
 <div class='card'>
 <h2>Carpetas más pesadas</h2>
-<div class="table-wrapper"></div>
+<div class="table-wrapper">
 <table> <colgroup><col/><col/></colgroup> <tr><th>Carpeta</th><th>TotalMB</th></tr> <tr><td>D:\DIEGO RIVERA</td><td>120215.28</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>58834.57</td></tr> <tr><td>D:\Geng Hongjun_Export\03.08.2023-1629PM\Exchange</td><td>15188.82</td></tr> <tr><td>D:\RESPALDO ONE DRIVE\33. BACKUP ONE DRIVE MEYBOL VINUEZA</td><td>11336.09</td></tr> <tr><td>D:\Leonardo Llanos_Export\03.08.2023-1630PM\Exchange</td><td>7875.47</td></tr> <tr><td>D:\RESPALDO ONE DRIVE\48. BACKUP ONE DRIVE MICHELLE VASCONEZ</td><td>6665.45</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\Delegaci&#243;n Ago 15</td><td>5958.43</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON\SEPTEMBER</td><td>2376.51</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON\October</td><td>1906.18</td></tr> <tr><td>D:\Backup Erika Tapia\Documentos\Archivos de Outlook</td><td>1534.27</td></tr> </table>
 </div>
 </div>
 
 <div class='card'>
 <h2>Archivos grandes (>100MB)</h2>
-<div class="table-wrapper"></div>
+<div class="table-wrapper">
 <table> <colgroup><col/><col/><col/><col/><col/><col/><col/></colgroup> <tr><th>RutaArchivo</th><th>Nivel</th><th>TamañoMB</th><th>Creado</th><th>Año</th><th>Carpeta</th><th>Extension</th></tr> <tr><td>D:\DIEGO RIVERA\SINOPEC.rar</td><td>2</td><td>120215.28</td><td>6/14/2022 3:25:16 PM</td><td>2022</td><td>D:\DIEGO RIVERA</td><td>.rar</td></tr> <tr><td>D:\RESPALDO ONE DRIVE\33. BACKUP ONE DRIVE MEYBOL VINUEZA\OneDrive_1_12-23-2021.zip</td><td>3</td><td>11336.09</td><td>12/23/2021 4:03:36 PM</td><td>2021</td><td>D:\RESPALDO ONE DRIVE\33. BACKUP ONE DRIVE MEYBOL VINUEZA</td><td>.zip</td></tr> <tr><td>D:\Geng Hongjun_Export\03.08.2023-1629PM\Exchange\genghongjun@sinopecservice-ec.com.pst</td><td>4</td><td>10003.33</td><td>3/8/2023 4:30:46 PM</td><td>2023</td><td>D:\Geng Hongjun_Export\03.08.2023-1629PM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com-4.pst</td><td>4</td><td>9968.45</td><td>3/2/2023 9:48:35 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com-3.pst</td><td>4</td><td>9894.83</td><td>3/2/2023 9:11:17 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com.pst</td><td>4</td><td>9885.14</td><td>3/2/2023 7:57:49 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com-2.pst</td><td>4</td><td>9867.7</td><td>3/2/2023 8:38:47 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com-5.pst</td><td>4</td><td>9830.89</td><td>3/2/2023 10:26:16 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com-6.pst</td><td>4</td><td>9387.2</td><td>3/2/2023 11:00:28 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Leonardo Llanos_Export\03.08.2023-1630PM\Exchange\leonardol@sinopecservice-ec.com.pst</td><td>4</td><td>7875.47</td><td>3/8/2023 4:31:02 PM</td><td>2023</td><td>D:\Leonardo Llanos_Export\03.08.2023-1630PM\Exchange</td><td>.pst</td></tr> <tr><td>D:\RESPALDO ONE DRIVE\48. BACKUP ONE DRIVE MICHELLE VASCONEZ\OneDrive_1_17-12-2021.zip</td><td>3</td><td>6665.45</td><td>12/17/2021 10:54:55 AM</td><td>2021</td><td>D:\RESPALDO ONE DRIVE\48. BACKUP ONE DRIVE MICHELLE VASCONEZ</td><td>.zip</td></tr> <tr><td>D:\Geng Hongjun_Export\03.08.2023-1629PM\Exchange\genghongjun@sinopecservice-ec.com-2.pst</td><td>4</td><td>5185.49</td><td>3/8/2023 5:46:05 PM</td><td>2023</td><td>D:\Geng Hongjun_Export\03.08.2023-1629PM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Backup Erika Tapia\Documentos\Archivos de Outlook\danielc@sinopecservice-ec.com (2).pst</td><td>4</td><td>1534.27</td><td>4/12/2019 2:37:25 PM</td><td>2019</td><td>D:\Backup Erika Tapia\Documentos\Archivos de Outlook</td><td>.pst</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Presentation1.pptx</td><td>3</td><td>590.71</td><td>6/8/2018 10:23:03 AM</td><td>2018</td><td>D:\ASISTENTE GERENTE\Documentos</td><td>.pptx</td></tr> <tr><td>D:\Karla Fernandez\Karla Fernandez_Export\07.29.2022-1508PM\manifest.xml</td><td>4</td><td>514.15</td><td>7/29/2022 3:09:10 PM</td><td>2022</td><td>D:\Karla Fernandez\Karla Fernandez_Export\07.29.2022-1508PM</td><td>.xml</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON\SEPTEMBER\Cabanne - A1 Aerobique VINYL ONLY  [Yoyaku].aiff</td><td>4</td><td>211.98</td><td>3/17/2019 12:08:41 PM</td><td>2019</td><td>D:\ASISTENTE GERENTE\KINGSTON\SEPTEMBER</td><td>.aiff</td></tr> <tr><td>D:\ALEX ZEA\Alex Zea_Export\06.16.2022-0917AM\manifest.xml</td><td>4</td><td>196.19</td><td>6/16/2022 9:17:47 AM</td><td>2022</td><td>D:\ALEX ZEA\Alex Zea_Export\06.16.2022-0917AM</td><td>.xml</td></tr> <tr><td>D:\QING LIU\QING LIU_Export\07.22.2022-0918AM\manifest.xml</td><td>4</td><td>192.37</td><td>7/22/2022 9:19:28 AM</td><td>2022</td><td>D:\QING LIU\QING LIU_Export\07.22.2022-0918AM</td><td>.xml</td></tr> <tr><td>D:\XUELIANG ZHANG\XUELIANG ZHANG_Export\07.14.2022-1631PM\manifest.xml</td><td>4</td><td>189.85</td><td>7/14/2022 4:31:25 PM</td><td>2022</td><td>D:\XUELIANG ZHANG\XUELIANG ZHANG_Export\07.14.2022-1631PM</td><td>.xml</td></tr> <tr><td>D:\XAVIER RAMOS\XAVIER RAMOS_Export\07.14.2022-0840AM\manifest.xml</td><td>4</td><td>185.85</td><td>7/14/2022 8:41:07 AM</td><td>2022</td><td>D:\XAVIER RAMOS\XAVIER RAMOS_Export\07.14.2022-0840AM</td><td>.xml</td></tr> </table>
 </div>
 </div>
 
 <div class='card'>
 <h2>Archivos antiguos (>8 años)</h2>
-<div class="table-wrapper"></div>
+<div class="table-wrapper">
 <table> <colgroup><col/><col/><col/><col/><col/><col/><col/></colgroup> <tr><th>RutaArchivo</th><th>Nivel</th><th>TamañoMB</th><th>Creado</th><th>Año</th><th>Carpeta</th><th>Extension</th></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\PERSONAL HU WEI\resume.docx</td><td>4</td><td>0.04</td><td>3/14/2017 2:10:32 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\PERSONAL HU WEI</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-018-0 - GUS - GUIDES FORMAT.DOCX</td><td>4</td><td>0.07</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-018-0 - GUS - GUIDES FORMAT (SPANISH VER.).docx</td><td>4</td><td>0.06</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-017-0 - PLN - PLAN FORMAT.DOCX</td><td>4</td><td>0.07</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-017-0 - PLN - PLAN FORMAT (SPANISH VER.).docx</td><td>4</td><td>0.06</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-016-0 - REG - REGULATION FORMAT.DOCX</td><td>4</td><td>0.07</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-016-0 - REG - REGULATION FORMAT (SPANISH VER.).docx</td><td>4</td><td>0.06</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-015-0 - PLT - POLICY FORMAT.DOCX</td><td>4</td><td>0.03</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-015-0 - PLT - POLICY FORMAT (SPANISH VER.).docx</td><td>4</td><td>0.03</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-014-0 - ATR - ATTENDANCE RECORD.DOCX</td><td>4</td><td>0.03</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-012-0 - COMPANY LETTERHEAD.DOCX</td><td>4</td><td>0.08</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-011-0 - ERC - ACTA DE ENTREGA-RECEPCION CAMPO.DOCX</td><td>4</td><td>0.04</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-009-2 - IOM - INTER OFFICE MEMO FORMAT.DOCX</td><td>4</td><td>0.11</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-008-0 - SAF - SOCIAL ATTENTION FORMAT.XLSX</td><td>4</td><td>0.04</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.xlsx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-007-0 - REP - REPORT FORMAT.DOCX</td><td>4</td><td>0.04</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-006-0 - MNC - FIELD MEETING MINUTE.DOC</td><td>4</td><td>0.12</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.doc</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-005-1 - PRC - PROCEDURE FORMAT.DOCX</td><td>4</td><td>0.07</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-005-1 - PRC - PROCEDURE FORMAT (SPANISH VER).docx</td><td>4</td><td>0.05</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-003-0 - SHIPPING LABEL.DOCX</td><td>4</td><td>0.02</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-002-0 - GENERAL DOCUMENT FORMAT.DOCX</td><td>4</td><td>0.06</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> </table>
 </div>
 </div>
 
 <div class='card'>
 <h2>Archivos duplicados por tamaño</h2>
-<div class="table-wrapper"></div>
+<div class="table-wrapper">
 <table> <colgroup><col/><col/><col/><col/></colgroup> <tr><th>Values</th><th>Count</th><th>Group</th><th>Name</th></tr> <tr><td>System.Collections.ArrayList</td><td>416</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0</td></tr> <tr><td>System.Collections.ArrayList</td><td>129</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.01</td></tr> <tr><td>System.Collections.ArrayList</td><td>4</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>100</td></tr> <tr><td>System.Collections.ArrayList</td><td>7</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.93</td></tr> <tr><td>System.Collections.ArrayList</td><td>9</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.25</td></tr> <tr><td>System.Collections.ArrayList</td><td>36</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.13</td></tr> <tr><td>System.Collections.ArrayList</td><td>14</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.33</td></tr> <tr><td>System.Collections.ArrayList</td><td>5</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.52</td></tr> <tr><td>System.Collections.ArrayList</td><td>5</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.53</td></tr> <tr><td>System.Collections.ArrayList</td><td>108</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.02</td></tr> <tr><td>System.Collections.ArrayList</td><td>2</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>2.17</td></tr> <tr><td>System.Collections.ArrayList</td><td>2</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.82</td></tr> <tr><td>System.Collections.ArrayList</td><td>2</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>6.34</td></tr> <tr><td>System.Collections.ArrayList</td><td>4</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>4.94</td></tr> <tr><td>System.Collections.ArrayList</td><td>69</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.06</td></tr> <tr><td>System.Collections.ArrayList</td><td>60</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.07</td></tr> <tr><td>System.Collections.ArrayList</td><td>14</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.19</td></tr> <tr><td>System.Collections.ArrayList</td><td>11</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.24</td></tr> <tr><td>System.Collections.ArrayList</td><td>33</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.12</td></tr> <tr><td>System.Collections.ArrayList</td><td>2</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>2.24</td></tr> </table>
 </div>
 </div>
 
 <div class='card'>
 <h2>Conteo de archivos por extensión</h2>
-<div class="table-wrapper"></div>
+<div class="table-wrapper">
 <table> <colgroup><col/><col/></colgroup> <tr><th>Name</th><th>Count</th></tr> <tr><td>.jpg</td><td>713</td></tr> <tr><td>.pdf</td><td>587</td></tr> <tr><td>.csv</td><td>308</td></tr> <tr><td>.docx</td><td>268</td></tr> <tr><td>.xlsx</td><td>239</td></tr> <tr><td>.xml</td><td>191</td></tr> <tr><td>.aiff</td><td>143</td></tr> <tr><td>.log</td><td>115</td></tr> <tr><td>.mp3</td><td>112</td></tr> <tr><td>.pptx</td><td>110</td></tr> <tr><td>.jpeg</td><td>70</td></tr> <tr><td>.xls</td><td>68</td></tr> <tr><td>.doc</td><td>40</td></tr> <tr><td>.png</td><td>38</td></tr> <tr><td>.zip</td><td>32</td></tr> <tr><td>.rar</td><td>20</td></tr> <tr><td>.pst</td><td>10</td></tr> <tr><td>.txt</td><td>8</td></tr> <tr><td>.msg</td><td>7</td></tr> <tr><td>.ds_store</td><td>6</td></tr> <tr><td>.mp4</td><td>6</td></tr> <tr><td>.ppt</td><td>6</td></tr> <tr><td>.db</td><td>6</td></tr> <tr><td>.tmp</td><td>5</td></tr> <tr><td>.ini</td><td>4</td></tr> <tr><td>.lnk</td><td>4</td></tr> <tr><td>.ai</td><td>3</td></tr> <tr><td>.gif</td><td>2</td></tr> <tr><td>.exe</td><td>2</td></tr> <tr><td>.pps</td><td>2</td></tr> <tr><td>. jpg</td><td>2</td></tr> <tr><td>.xlsm</td><td>2</td></tr> <tr><td>.htm</td><td>1</td></tr> <tr><td>.device</td><td>1</td></tr> <tr><td>.p12</td><td>1</td></tr> <tr><td>.pfx</td><td>1</td></tr> <tr><td>.thmx</td><td>1</td></tr> <tr><td></td><td>1</td></tr> <tr><td>.bmp</td><td>1</td></tr> <tr><td>.url</td><td>1</td></tr> <tr><td>.wav</td><td>1</td></tr> <tr><td>.xlam</td><td>1</td></tr> <tr><td>.xlt</td><td>1</td></tr> <tr><td>.las</td><td>1</td></tr> </table>
 </div>
 </div>
 </div>
+</div> 
 </section>
 
 <script>
-// Gráfico de espacio con mejor configuración
+// ========================================
+// GRÁFICO CIRCULAR - CONFIGURACIÓN RESPONSIVA
+// ========================================
 var ctx = document.getElementById('chartEspacio');
 new Chart(ctx, {
   type: 'doughnut',
@@ -488,49 +557,67 @@ new Chart(ctx, {
     datasets: [{
       data: [1819.07, 43.94],
       backgroundColor: ['#e74c3c', '#2ecc71'],
-      borderWidth: 2,
-      borderColor: '#fff'
+      borderWidth: 3,
+      borderColor: '#fff',
+      hoverOffset: 10
     }]
   },
   options: {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 1.5,
+    aspectRatio: window.innerWidth < 768 ? 1.2 : 1.5,
     plugins: {
       legend: {
         position: 'bottom',
         labels: {
-          padding: 20,
+          padding: window.innerWidth < 768 ? 15 : 20,
           font: { 
-            size: 15,
-            weight: '500'
+            size: window.innerWidth < 768 ? 13 : 16,
+            weight: '600',
+            family: "'Segoe UI', Arial, sans-serif"
           },
           usePointStyle: true,
-          pointStyle: 'circle'
+          pointStyle: 'circle',
+          boxWidth: window.innerWidth < 768 ? 12 : 15,
+          boxHeight: window.innerWidth < 768 ? 12 : 15
         }
       },
       tooltip: {
+        backgroundColor: 'rgba(0,0,0,0.85)',
+        padding: window.innerWidth < 768 ? 10 : 14,
+        titleFont: { 
+          size: window.innerWidth < 768 ? 13 : 15,
+          weight: 'bold'
+        },
+        bodyFont: { 
+          size: window.innerWidth < 768 ? 12 : 14
+        },
+        cornerRadius: 8,
         callbacks: {
           label: function(context) {
             let label = context.label || '';
             let value = context.parsed || 0;
             let total = context.dataset.data.reduce((a, b) => a + b, 0);
-            let percentage = ((value / total) * 100).toFixed(2);
-            return label + ': ' + value + ' GB (' + percentage + '%)';
+            let percentage = ((value / total) * 100).toFixed(1);
+            return label + ': ' + value.toFixed(2) + ' GB (' + percentage + '%)';
           }
         }
       }
     },
     layout: {
       padding: {
-        top: 10,
-        bottom: 30
+        top: 15,
+        bottom: window.innerWidth < 768 ? 25 : 35,
+        left: 10,
+        right: 10
       }
     }
   }
 });
 
-// Gráfico de años con mejor configuración
+// ========================================
+// GRÁFICO DE BARRAS - CONFIGURACIÓN RESPONSIVA
+// ========================================
 var años = [
   {"Año":"2017","Cantidad":26},
   {"Año":"2018","Cantidad":170},
@@ -552,36 +639,54 @@ new Chart(ctx2, {
       label: 'Cantidad de archivos',
       data: años.map(a => a.Cantidad),
       backgroundColor: '#3498db',
-      borderRadius: 8,
-      borderWidth: 0
+      borderRadius: window.innerWidth < 768 ? 6 : 8,
+      borderWidth: 0,
+      hoverBackgroundColor: '#2980b9'
     }]
   },
   options: {
     responsive: true,
     maintainAspectRatio: true,
-    aspectRatio: 2,
+    aspectRatio: window.innerWidth < 768 ? 1.3 : 2,
     plugins: {
       legend: { 
         display: true,
         labels: {
-          font: { size: 14 }
+          font: { 
+            size: window.innerWidth < 768 ? 13 : 15,
+            weight: '600',
+            family: "'Segoe UI', Arial, sans-serif"
+          },
+          padding: window.innerWidth < 768 ? 12 : 15
         }
       },
       tooltip: {
-        backgroundColor: 'rgba(0,0,0,0.8)',
-        padding: 12,
-        titleFont: { size: 14 },
-        bodyFont: { size: 13 }
+        backgroundColor: 'rgba(0,0,0,0.85)',
+        padding: window.innerWidth < 768 ? 10 : 14,
+        titleFont: { 
+          size: window.innerWidth < 768 ? 13 : 15,
+          weight: 'bold'
+        },
+        bodyFont: { 
+          size: window.innerWidth < 768 ? 12 : 14
+        },
+        cornerRadius: 8
       }
     },
     scales: {
       y: {
         beginAtZero: true,
         grid: {
-          color: 'rgba(0, 0, 0, 0.05)'
+          color: 'rgba(0, 0, 0, 0.06)',
+          lineWidth: 1
         },
         ticks: {
-          font: { size: 13 }
+          font: { 
+            size: window.innerWidth < 768 ? 11 : 13,
+            family: "'Segoe UI', Arial, sans-serif"
+          },
+          padding: 8,
+          color: '#555'
         }
       },
       x: {
@@ -589,17 +694,31 @@ new Chart(ctx2, {
           display: false
         },
         ticks: {
-          font: { size: 13 }
+          font: { 
+            size: window.innerWidth < 768 ? 11 : 13,
+            family: "'Segoe UI', Arial, sans-serif"
+          },
+          padding: 8,
+          color: '#555'
         }
       }
     },
     layout: {
       padding: {
-        top: 10,
-        bottom: 10
+        top: 15,
+        bottom: 15,
+        left: window.innerWidth < 768 ? 5 : 10,
+        right: window.innerWidth < 768 ? 5 : 10
       }
     }
   }
+});
+
+// Redimensionar gráficos al cambiar tamaño de ventana
+window.addEventListener('resize', function() {
+  Chart.instances.forEach(chart => {
+    chart.resize();
+  });
 });
 </script>
 <script>
