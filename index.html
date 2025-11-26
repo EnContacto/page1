@@ -1,73 +1,263 @@
-<html>
+﻿<html>
 <head>
 <title>Informe de D:\</title>
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-
+<script src='https://cdn.jsdelivr.net/npm/chart.js'></script>
 <style>
-body{
-    font-family:'Segoe UI',Arial;margin:0;
-    background:#eef1f5;color:#333;
-    transition:0.3s;
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
 }
 
-body.dark{
-    background:#1e1e1e;
-    color:#e0e0e0;
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: #333;
+  line-height: 1.6;
 }
 
-header{
-    background:#2c3e50;color:white;padding:25px;text-align:center
+header {
+  background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+  color: white;
+  padding: 2rem;
+  text-align: center;
+  box-shadow: 0 4px 6px rgba(0,0,0,0.1);
 }
 
-body.dark header{
-    background:#111;
+header h1 {
+  font-size: clamp(1.5rem, 4vw, 2.5rem);
+  font-weight: 600;
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
 }
 
-.card{
-    background:white;padding:25px;margin-bottom:30px;border-radius:12px;
-    box-shadow:0 4px 12px rgba(0,0,0,0.1);transition:0.3s;
+section {
+  margin: 2rem auto;
+  width: 95%;
+  max-width: 1400px;
+  padding: 0 1rem;
 }
 
-body.dark .card{
-    background:#2b2b2b;
-    color:white;
-    box-shadow:0 4px 12px rgba(255,255,255,0.05);
+.card {
+  background: white;
+  padding: clamp(1rem, 3vw, 2rem);
+  margin-bottom: 2rem;
+  border-radius: 16px;
+  box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  overflow: hidden;
 }
 
-table{width:100%;border-collapse:collapse;margin-top:15px}
-th{
-    background:#34495e;color:white;padding:8px
-}
-body.dark th{
-    background:#000;
+.card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.18);
 }
 
-td{
-    background:white;padding:8px;border-bottom:1px solid #ddd
-}
-body.dark td{
-    background:#3a3a3a;border-bottom:1px solid #555;
-}
-
-.summary-box{
-    background:#34495e;color:white;padding:20px;border-radius:10px;font-size:18px
-}
-body.dark .summary-box{
-    background:#000;
+h2 {
+  color: #2c3e50;
+  margin: 0 0 1.5rem 0;
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  padding-bottom: 0.75rem;
+  border-bottom: 3px solid #3498db;
 }
 
-.theme-btn{
-    position:fixed;top:15px;right:15px;
-    padding:10px 18px;font-size:15px;
-    border:none;border-radius:8px;
-    background:#3498db;color:white;
-    cursor:pointer;transition:0.3s;
+/* TABLAS RESPONSIVAS */
+.table-wrapper {
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+  margin-top: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  min-width: 600px;
+  font-size: clamp(0.75rem, 2vw, 0.95rem);
+}
+
+th {
+  background: linear-gradient(135deg, #34495e 0%, #2c3e50 100%);
+  color: white;
+  padding: 1rem 0.75rem;
+  text-align: left;
+  font-weight: 600;
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  white-space: nowrap;
+}
+
+td {
+  background: white;
+  padding: 0.875rem 0.75rem;
+  border-bottom: 1px solid #ecf0f1;
+  transition: background-color 0.2s ease;
+}
+
+tr:hover td {
+  background-color: #f8f9fa;
+}
+
+tr:last-child td {
+  border-bottom: none;
+}
+
+/* GRID DE RESUMEN */
+.summary-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.25rem;
+  text-align: center;
+}
+
+.summary-box {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 1.75rem 1rem;
+  border-radius: 12px;
+  font-size: clamp(0.95rem, 2.5vw, 1.125rem);
+  box-shadow: 0 4px 12px rgba(102, 126, 234, 0.3);
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.summary-box:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 8px 20px rgba(102, 126, 234, 0.4);
+}
+
+.summary-box b {
+  display: block;
+  font-size: clamp(1.5rem, 4vw, 2.25rem);
+  margin-top: 0.5rem;
+  font-weight: 700;
+}
+
+/* GRÁFICOS RESPONSIVOS */
+.chart-container {
+  position: relative;
+  margin: 1.5rem auto;
+  max-width: 700px;
+  height: 300px;
+}
+
+canvas {
+  max-width: 100%;
+  height: auto !important;
+}
+
+/* ESTADO DEL DISCO */
+.summary-box:last-child {
+  background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+}
+
+/* SCROLL SUAVE */
+html {
+  scroll-behavior: smooth;
+}
+
+/* RESPONSIVE BREAKPOINTS */
+@media (max-width: 768px) {
+  header {
+    padding: 1.5rem 1rem;
+  }
+  
+  section {
+    width: 98%;
+    padding: 0 0.5rem;
+  }
+  
+  .card {
+    padding: 1rem;
+    margin-bottom: 1.5rem;
+    border-radius: 12px;
+  }
+  
+  .summary-grid {
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 1rem;
+  }
+  
+  .summary-box {
+    padding: 1.25rem 0.75rem;
+  }
+  
+  table {
+    font-size: 0.75rem;
+    min-width: 500px;
+  }
+  
+  th, td {
+    padding: 0.625rem 0.5rem;
+  }
+  
+  .chart-container {
+    height: 250px;
+  }
+}
+
+@media (max-width: 480px) {
+  .summary-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  table {
+    min-width: 400px;
+    font-size: 0.7rem;
+  }
+  
+  th, td {
+    padding: 0.5rem 0.375rem;
+  }
+  
+  .chart-container {
+    height: 220px;
+  }
+}
+
+/* ANIMACIONES DE CARGA */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.card {
+  animation: fadeIn 0.6s ease-out;
+}
+
+/* MEJORA DE ACCESIBILIDAD */
+:focus {
+  outline: 2px solid #3498db;
+  outline-offset: 2px;
+}
+
+/* SCROLLBAR PERSONALIZADA */
+.table-wrapper::-webkit-scrollbar {
+  height: 8px;
+}
+
+.table-wrapper::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb {
+  background: #888;
+  border-radius: 4px;
+}
+
+.table-wrapper::-webkit-scrollbar-thumb:hover {
+  background: #555;
 }
 </style>
 </head>
 <body>
-
-<button class="theme-btn" onclick="toggleTheme()">🌙/☀️ Tema</button>
 
 <header>
 <h1>Informe-Análisis: TOSHIBA-EXT</h1>
@@ -76,126 +266,146 @@ body.dark .summary-box{
 <section>
 <div class='card'>
 <h2>Resumen General</h2>
-<div id="resumen" class='summary-grid'>
-<!-- Se llenará con JSON -->
+<div class='summary-grid'>
+<div class='summary-box'>Archivos analizados<br><b>3141</b></div>
+<div class='summary-box'>Espacio usado<br><b>1819.07 GB</b></div>
+<div class='summary-box'>Espacio libre<br><b>43.94 GB</b></div>
+<div class='summary-box'>Estado disco<br><b>Rojo</b></div>
 </div>
 </div>
 
 <div class='card'>
 <h2>Uso del disco</h2>
+<div class="chart-container">
 <canvas id='chartEspacio'></canvas>
+</div>
 </div>
 
 <div class='card'>
 <h2>Distribución de archivos por año</h2>
+<div class="chart-container">
 <canvas id='chartAnios'></canvas>
+</div>
 </div>
 
 <div class='card'>
 <h2>Top 10 carpetas más pesadas</h2>
-<table id="tablaTop">
-<tr><th>Carpeta</th><th>TotalMB</th></tr>
-</table>
+<div class="table-wrapper"></div>
+<table> <colgroup><col/><col/></colgroup> <tr><th>Carpeta</th><th>TotalMB</th></tr> <tr><td>D:\DIEGO RIVERA</td><td>120215.28</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>58834.57</td></tr> <tr><td>D:\Geng Hongjun_Export\03.08.2023-1629PM\Exchange</td><td>15188.82</td></tr> <tr><td>D:\RESPALDO ONE DRIVE\33. BACKUP ONE DRIVE MEYBOL VINUEZA</td><td>11336.09</td></tr> <tr><td>D:\Leonardo Llanos_Export\03.08.2023-1630PM\Exchange</td><td>7875.47</td></tr> <tr><td>D:\RESPALDO ONE DRIVE\48. BACKUP ONE DRIVE MICHELLE VASCONEZ</td><td>6665.45</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\Delegaci&#243;n Ago 15</td><td>5958.43</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON\SEPTEMBER</td><td>2376.51</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON\October</td><td>1906.18</td></tr> <tr><td>D:\Backup Erika Tapia\Documentos\Archivos de Outlook</td><td>1534.27</td></tr> </table>
+</div>
 </div>
 
 <div class='card'>
 <h2>Archivos grandes (>100MB)</h2>
-<table id="tablaGrandes">
-<tr><th>Ruta Archivo</th><th>Nivel</th><th>TamañoMB</th><th>Creado</th><th>Año</th><th>Carpeta</th><th>Ext</th></tr>
-</table>
+<div class="table-wrapper"></div>
+<table> <colgroup><col/><col/><col/><col/><col/><col/><col/></colgroup> <tr><th>RutaArchivo</th><th>Nivel</th><th>TamañoMB</th><th>Creado</th><th>Año</th><th>Carpeta</th><th>Extension</th></tr> <tr><td>D:\DIEGO RIVERA\SINOPEC.rar</td><td>2</td><td>120215.28</td><td>6/14/2022 3:25:16 PM</td><td>2022</td><td>D:\DIEGO RIVERA</td><td>.rar</td></tr> <tr><td>D:\RESPALDO ONE DRIVE\33. BACKUP ONE DRIVE MEYBOL VINUEZA\OneDrive_1_12-23-2021.zip</td><td>3</td><td>11336.09</td><td>12/23/2021 4:03:36 PM</td><td>2021</td><td>D:\RESPALDO ONE DRIVE\33. BACKUP ONE DRIVE MEYBOL VINUEZA</td><td>.zip</td></tr> <tr><td>D:\Geng Hongjun_Export\03.08.2023-1629PM\Exchange\genghongjun@sinopecservice-ec.com.pst</td><td>4</td><td>10003.33</td><td>3/8/2023 4:30:46 PM</td><td>2023</td><td>D:\Geng Hongjun_Export\03.08.2023-1629PM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com-4.pst</td><td>4</td><td>9968.45</td><td>3/2/2023 9:48:35 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com-3.pst</td><td>4</td><td>9894.83</td><td>3/2/2023 9:11:17 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com.pst</td><td>4</td><td>9885.14</td><td>3/2/2023 7:57:49 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com-2.pst</td><td>4</td><td>9867.7</td><td>3/2/2023 8:38:47 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com-5.pst</td><td>4</td><td>9830.89</td><td>3/2/2023 10:26:16 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange\garzonj@panaturi.com-6.pst</td><td>4</td><td>9387.2</td><td>3/2/2023 11:00:28 AM</td><td>2023</td><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Leonardo Llanos_Export\03.08.2023-1630PM\Exchange\leonardol@sinopecservice-ec.com.pst</td><td>4</td><td>7875.47</td><td>3/8/2023 4:31:02 PM</td><td>2023</td><td>D:\Leonardo Llanos_Export\03.08.2023-1630PM\Exchange</td><td>.pst</td></tr> <tr><td>D:\RESPALDO ONE DRIVE\48. BACKUP ONE DRIVE MICHELLE VASCONEZ\OneDrive_1_17-12-2021.zip</td><td>3</td><td>6665.45</td><td>12/17/2021 10:54:55 AM</td><td>2021</td><td>D:\RESPALDO ONE DRIVE\48. BACKUP ONE DRIVE MICHELLE VASCONEZ</td><td>.zip</td></tr> <tr><td>D:\Geng Hongjun_Export\03.08.2023-1629PM\Exchange\genghongjun@sinopecservice-ec.com-2.pst</td><td>4</td><td>5185.49</td><td>3/8/2023 5:46:05 PM</td><td>2023</td><td>D:\Geng Hongjun_Export\03.08.2023-1629PM\Exchange</td><td>.pst</td></tr> <tr><td>D:\Backup Erika Tapia\Documentos\Archivos de Outlook\danielc@sinopecservice-ec.com (2).pst</td><td>4</td><td>1534.27</td><td>4/12/2019 2:37:25 PM</td><td>2019</td><td>D:\Backup Erika Tapia\Documentos\Archivos de Outlook</td><td>.pst</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Presentation1.pptx</td><td>3</td><td>590.71</td><td>6/8/2018 10:23:03 AM</td><td>2018</td><td>D:\ASISTENTE GERENTE\Documentos</td><td>.pptx</td></tr> <tr><td>D:\Karla Fernandez\Karla Fernandez_Export\07.29.2022-1508PM\manifest.xml</td><td>4</td><td>514.15</td><td>7/29/2022 3:09:10 PM</td><td>2022</td><td>D:\Karla Fernandez\Karla Fernandez_Export\07.29.2022-1508PM</td><td>.xml</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON\SEPTEMBER\Cabanne - A1 Aerobique VINYL ONLY  [Yoyaku].aiff</td><td>4</td><td>211.98</td><td>3/17/2019 12:08:41 PM</td><td>2019</td><td>D:\ASISTENTE GERENTE\KINGSTON\SEPTEMBER</td><td>.aiff</td></tr> <tr><td>D:\ALEX ZEA\Alex Zea_Export\06.16.2022-0917AM\manifest.xml</td><td>4</td><td>196.19</td><td>6/16/2022 9:17:47 AM</td><td>2022</td><td>D:\ALEX ZEA\Alex Zea_Export\06.16.2022-0917AM</td><td>.xml</td></tr> <tr><td>D:\QING LIU\QING LIU_Export\07.22.2022-0918AM\manifest.xml</td><td>4</td><td>192.37</td><td>7/22/2022 9:19:28 AM</td><td>2022</td><td>D:\QING LIU\QING LIU_Export\07.22.2022-0918AM</td><td>.xml</td></tr> <tr><td>D:\XUELIANG ZHANG\XUELIANG ZHANG_Export\07.14.2022-1631PM\manifest.xml</td><td>4</td><td>189.85</td><td>7/14/2022 4:31:25 PM</td><td>2022</td><td>D:\XUELIANG ZHANG\XUELIANG ZHANG_Export\07.14.2022-1631PM</td><td>.xml</td></tr> <tr><td>D:\XAVIER RAMOS\XAVIER RAMOS_Export\07.14.2022-0840AM\manifest.xml</td><td>4</td><td>185.85</td><td>7/14/2022 8:41:07 AM</td><td>2022</td><td>D:\XAVIER RAMOS\XAVIER RAMOS_Export\07.14.2022-0840AM</td><td>.xml</td></tr> </table>
+</div>
 </div>
 
 <div class='card'>
 <h2>Archivos antiguos (>8 años)</h2>
-<table id="tablaAntiguos">
-<tr><th>Ruta Archivo</th><th>Nivel</th><th>TamañoMB</th><th>Creado</th><th>Año</th><th>Carpeta</th><th>Ext</th></tr>
-</table>
+<div class="table-wrapper"></div>
+<table> <colgroup><col/><col/><col/><col/><col/><col/><col/></colgroup> <tr><th>RutaArchivo</th><th>Nivel</th><th>TamañoMB</th><th>Creado</th><th>Año</th><th>Carpeta</th><th>Extension</th></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\PERSONAL HU WEI\resume.docx</td><td>4</td><td>0.04</td><td>3/14/2017 2:10:32 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\PERSONAL HU WEI</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-018-0 - GUS - GUIDES FORMAT.DOCX</td><td>4</td><td>0.07</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-018-0 - GUS - GUIDES FORMAT (SPANISH VER.).docx</td><td>4</td><td>0.06</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-017-0 - PLN - PLAN FORMAT.DOCX</td><td>4</td><td>0.07</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-017-0 - PLN - PLAN FORMAT (SPANISH VER.).docx</td><td>4</td><td>0.06</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-016-0 - REG - REGULATION FORMAT.DOCX</td><td>4</td><td>0.07</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-016-0 - REG - REGULATION FORMAT (SPANISH VER.).docx</td><td>4</td><td>0.06</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-015-0 - PLT - POLICY FORMAT.DOCX</td><td>4</td><td>0.03</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-015-0 - PLT - POLICY FORMAT (SPANISH VER.).docx</td><td>4</td><td>0.03</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-014-0 - ATR - ATTENDANCE RECORD.DOCX</td><td>4</td><td>0.03</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-012-0 - COMPANY LETTERHEAD.DOCX</td><td>4</td><td>0.08</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-011-0 - ERC - ACTA DE ENTREGA-RECEPCION CAMPO.DOCX</td><td>4</td><td>0.04</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-009-2 - IOM - INTER OFFICE MEMO FORMAT.DOCX</td><td>4</td><td>0.11</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-008-0 - SAF - SOCIAL ATTENTION FORMAT.XLSX</td><td>4</td><td>0.04</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.xlsx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-007-0 - REP - REPORT FORMAT.DOCX</td><td>4</td><td>0.04</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-006-0 - MNC - FIELD MEETING MINUTE.DOC</td><td>4</td><td>0.12</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.doc</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-005-1 - PRC - PROCEDURE FORMAT.DOCX</td><td>4</td><td>0.07</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-005-1 - PRC - PROCEDURE FORMAT (SPANISH VER).docx</td><td>4</td><td>0.05</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-003-0 - SHIPPING LABEL.DOCX</td><td>4</td><td>0.02</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos\02-RGT-SIP-002-0 - GENERAL DOCUMENT FORMAT.DOCX</td><td>4</td><td>0.06</td><td>11/21/2017 2:38:21 PM</td><td>2017</td><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td></tr> </table>
+</div>
 </div>
 
+<div class='card'>
+<h2>Archivos duplicados por tamaño</h2>
+<div class="table-wrapper"></div>
+<table> <colgroup><col/><col/><col/><col/></colgroup> <tr><th>Values</th><th>Count</th><th>Group</th><th>Name</th></tr> <tr><td>System.Collections.ArrayList</td><td>416</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0</td></tr> <tr><td>System.Collections.ArrayList</td><td>129</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.01</td></tr> <tr><td>System.Collections.ArrayList</td><td>4</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>100</td></tr> <tr><td>System.Collections.ArrayList</td><td>7</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.93</td></tr> <tr><td>System.Collections.ArrayList</td><td>9</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.25</td></tr> <tr><td>System.Collections.ArrayList</td><td>36</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.13</td></tr> <tr><td>System.Collections.ArrayList</td><td>14</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.33</td></tr> <tr><td>System.Collections.ArrayList</td><td>5</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.52</td></tr> <tr><td>System.Collections.ArrayList</td><td>5</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.53</td></tr> <tr><td>System.Collections.ArrayList</td><td>108</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.02</td></tr> <tr><td>System.Collections.ArrayList</td><td>2</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>2.17</td></tr> <tr><td>System.Collections.ArrayList</td><td>2</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.82</td></tr> <tr><td>System.Collections.ArrayList</td><td>2</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>6.34</td></tr> <tr><td>System.Collections.ArrayList</td><td>4</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>4.94</td></tr> <tr><td>System.Collections.ArrayList</td><td>69</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.06</td></tr> <tr><td>System.Collections.ArrayList</td><td>60</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.07</td></tr> <tr><td>System.Collections.ArrayList</td><td>14</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.19</td></tr> <tr><td>System.Collections.ArrayList</td><td>11</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.24</td></tr> <tr><td>System.Collections.ArrayList</td><td>33</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>0.12</td></tr> <tr><td>System.Collections.ArrayList</td><td>2</td><td>System.Collections.ObjectModel.Collection`1[System.Management.Automation.PSObject]</td><td>2.24</td></tr> </table>
+</div>
+</div>
+
+<div class='card'>
+<h2>Conteo de archivos por extensión</h2>
+<div class="table-wrapper"></div>
+<table> <colgroup><col/><col/></colgroup> <tr><th>Name</th><th>Count</th></tr> <tr><td>.jpg</td><td>713</td></tr> <tr><td>.pdf</td><td>587</td></tr> <tr><td>.csv</td><td>308</td></tr> <tr><td>.docx</td><td>268</td></tr> <tr><td>.xlsx</td><td>239</td></tr> <tr><td>.xml</td><td>191</td></tr> <tr><td>.aiff</td><td>143</td></tr> <tr><td>.log</td><td>115</td></tr> <tr><td>.mp3</td><td>112</td></tr> <tr><td>.pptx</td><td>110</td></tr> <tr><td>.jpeg</td><td>70</td></tr> <tr><td>.xls</td><td>68</td></tr> <tr><td>.doc</td><td>40</td></tr> <tr><td>.png</td><td>38</td></tr> <tr><td>.zip</td><td>32</td></tr> <tr><td>.rar</td><td>20</td></tr> <tr><td>.pst</td><td>10</td></tr> <tr><td>.txt</td><td>8</td></tr> <tr><td>.msg</td><td>7</td></tr> <tr><td>.ds_store</td><td>6</td></tr> <tr><td>.mp4</td><td>6</td></tr> <tr><td>.ppt</td><td>6</td></tr> <tr><td>.db</td><td>6</td></tr> <tr><td>.tmp</td><td>5</td></tr> <tr><td>.ini</td><td>4</td></tr> <tr><td>.lnk</td><td>4</td></tr> <tr><td>.ai</td><td>3</td></tr> <tr><td>.gif</td><td>2</td></tr> <tr><td>.exe</td><td>2</td></tr> <tr><td>.pps</td><td>2</td></tr> <tr><td>. jpg</td><td>2</td></tr> <tr><td>.xlsm</td><td>2</td></tr> <tr><td>.htm</td><td>1</td></tr> <tr><td>.device</td><td>1</td></tr> <tr><td>.p12</td><td>1</td></tr> <tr><td>.pfx</td><td>1</td></tr> <tr><td>.thmx</td><td>1</td></tr> <tr><td></td><td>1</td></tr> <tr><td>.bmp</td><td>1</td></tr> <tr><td>.url</td><td>1</td></tr> <tr><td>.wav</td><td>1</td></tr> <tr><td>.xlam</td><td>1</td></tr> <tr><td>.xlt</td><td>1</td></tr> <tr><td>.las</td><td>1</td></tr> </table>
+</div>
+</div>
+
+<div class='card'>
+<h2>Carpetas y su tipo de archivo más común</h2>
+<div class="table-wrapper">
+ <table> <colgroup><col/><col/><col/></colgroup> <tr><th>Carpeta</th><th>ExtensionMasComun</th><th>Cantidad</th></tr> <tr><td>D:\</td><td>.device</td><td>1</td></tr> <tr><td>D:\$RECYCLE.BIN\S-1-5-21-3998501089-1319334985-3532626865-3543</td><td>.ini</td><td>1</td></tr> <tr><td>D:\ALEX ZEA\Alex Zea_Export\06.16.2022-0917AM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\ambiente cypb\9.- ANEXO 9 LODOS RIPIOS\1. ENERO</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\ambiente cypb\9.- ANEXO 9 LODOS RIPIOS\2 FEBRERO</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\ambiente cypb\9.- ANEXO 9 LODOS RIPIOS\3.MARZO</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\ambiente cypb\9.- ANEXO 9 LODOS RIPIOS\4. ABRIL</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\ambiente cypb\9.- ANEXO 9 LODOS RIPIOS\5 .MAYO</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\ambiente cypb\9.- ANEXO 9 LODOS RIPIOS\6. JUNIO</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\ambiente cypb\9.- ANEXO 9 LODOS RIPIOS\7. JULIO</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\ambiente cypb\9.- ANEXO 9 LODOS RIPIOS\8.AGOSTO</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\ambiente cypb\Matriz MAI Monito Cronogra\1. ENERO</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\ambiente cypb\Matriz MAI Monito Cronogra\2. FEBRERO</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\ambiente cypb\Matriz MAI Monito Cronogra\3. MARZO</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\ambiente cypb\Matriz MAI Monito Cronogra\4. ABRIL</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\ambiente cypb\Matriz MAI Monito Cronogra\5 .MAYO</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\ambiente cypb\Matriz MAI Monito Cronogra\6. JUNIO</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\ambiente cypb\Matriz MAI Monito Cronogra\7. JULIO</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\ambiente cypb\Matriz MAI Monito Cronogra\8. AGOSTO</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\ambiente cypb\Matriz MAI Monito Cronogra\Certificados y calibracion de equipos</td><td>.zip</td><td>2</td></tr> <tr><td>D:\Ana Gabriela Michelena\Ana Gabriela Michelena_Export\06.16.2022-0900AM</td><td>.xml</td><td>4</td></tr> <tr><td>D:\Ana Gabriela Michelena\Ana Gabriela Michelena_Export\Temp</td><td>.db</td><td>1</td></tr> <tr><td>D:\ANDREA BARAHONA\Andrea Barahona_Export\06.08.2022-0936AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos</td><td>.xlsx</td><td>14</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\2018</td><td>.docx</td><td>11</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\caja chica</td><td>.xlsx</td><td>4</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Camera Roll</td><td>.jpg</td><td>15</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\cartas</td><td>.docx</td><td>7</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Delegaciones</td><td>.pptx</td><td>5</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\DOCUMENTS ARRIVED</td><td>.docx</td><td>3</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Formatos</td><td>.docx</td><td>24</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\LEGAL</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\Memos</td><td>.pdf</td><td>3</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\My Received Files</td><td>.pptx</td><td>1</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\OneDrive - SINOPEC Ecuador(1)</td><td>.xlsx</td><td>9</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\PAM</td><td>.pdf</td><td>89</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\PANATURI</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\PERSONAL HU WEI</td><td>.pdf</td><td>2</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\PERSONAL JACK</td><td>.png</td><td>1</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\PERSONAL SALVADOR</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\REPORTE DIARIO</td><td>.pptx</td><td>36</td></tr> <tr><td>D:\ASISTENTE GERENTE\Documentos\TRADUCCIONES</td><td>.docx</td><td>15</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON</td><td>.thmx</td><td>1</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON\18919</td><td>.aiff</td><td>13</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON\26SEP</td><td>.mp3</td><td>40</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON\DT</td><td>.mp3</td><td>7</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON\October</td><td>.aiff</td><td>40</td></tr> <tr><td>D:\ASISTENTE GERENTE\KINGSTON\SEPTEMBER</td><td>.aiff</td><td>55</td></tr> <tr><td>D:\Backup Erika Tapia\Backup Erika Tapia Cri\Escritorio</td><td>.pdf</td><td>16</td></tr> <tr><td>D:\Backup Erika Tapia\Descargas</td><td>.pdf</td><td>85</td></tr> <tr><td>D:\Backup Erika Tapia\Descargas\Cv cruz</td><td>.jpg</td><td>8</td></tr> <tr><td>D:\Backup Erika Tapia\Descargas\Imprimir</td><td>.pdf</td><td>3</td></tr> <tr><td>D:\Backup Erika Tapia\Disco D</td><td>.rar</td><td>2</td></tr> <tr><td>D:\Backup Erika Tapia\Disco D\REPORTES ESCANEADOS CON FIRMAS</td><td>.pdf</td><td>14</td></tr> <tr><td>D:\Backup Erika Tapia\Documentos</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\Backup Erika Tapia\Documentos\Archivos de Outlook</td><td>.pst</td><td>1</td></tr> <tr><td>D:\Backup Erika Tapia\Escritorio</td><td>.pdf</td><td>16</td></tr> <tr><td>D:\Backup Erika Tapia\Escritorio\05072015 PLAN DE PERFORACION COMPLETO PLAN-57</td><td>.pptx</td><td>10</td></tr> <tr><td>D:\Backup Erika Tapia\Escritorio\Fotos</td><td>.jpg</td><td>17</td></tr> <tr><td>D:\Backup Erika Tapia\One Drive</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\Backup Erika Tapia\One Drive\Datos adjuntos de correo electr&#243;nico</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\Backup Erika Tapia\OneDrive - SINOPEC Ecuador</td><td>.docx</td><td>14</td></tr> <tr><td>D:\Backup Erika Tapia\OneDrive - SINOPEC Ecuador\Attachments</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\Backup Erika Tapia\OneDrive - SINOPEC Ecuador\CDS</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\Backup Erika Tapia\OneDrive - SINOPEC Ecuador\CRI</td><td>.xlsx</td><td>7</td></tr> <tr><td>D:\Backup Erika Tapia\SC\627</td><td>.pdf</td><td>11</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Calificaci&#243;n como Proveedor</td><td>.pdf</td><td>7</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Completion Fluids</td><td>.pdf</td><td>11</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Contratos y T&#233;rminos y Condiciones</td><td>.docx</td><td>2</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Cotizaciones</td><td>.pdf</td><td>14</td></tr> <tr><td>D:\Backup Erika Tapia\SC\cotizaciones firmadas</td><td>.pdf</td><td>3</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Facturas Proveedores</td><td>.xlsx</td><td>19</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Formatos</td><td>.xlsx</td><td>12</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Halliburton Webinar</td><td>.png</td><td>13</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Info Otras Compa&#241;&#237;as</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Informes t&#233;cnicos</td><td>.pdf</td><td>8</td></tr> <tr><td>D:\Backup Erika Tapia\SC\IOM</td><td>.pdf</td><td>2</td></tr> <tr><td>D:\Backup Erika Tapia\SC\LAB. LIMONCOCHA 40</td><td>.ds_store</td><td>2</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Legal</td><td>.docx</td><td>2</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Other Propousal</td><td>.pdf</td><td>14</td></tr> <tr><td>D:\Backup Erika Tapia\SC\POL&#205;TICAS INTERNAS</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Requisiciones</td><td>.docx</td><td>25</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Tickets A&#233;reos</td><td>.pdf</td><td>4</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Tickets y Facturas</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\Backup Erika Tapia\SC\Varios</td><td>.png</td><td>7</td></tr> <tr><td>D:\Cao Jian\Cao Jian_Export\06.07.2022-1508PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\Carlos Espinosa\carlos espinoza_Export\06.20.2022-1148AM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\CARLOS VILLACRES\CARLOS VILLACRES_Export\06.20.2022-1442PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\CHANG ZHAI LI\CHANG ZHAI LI_Export\06.21.2022-1024AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\CHANGCHUN LI\CHANGCHUN LI_Export\06.21.2022-1025AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\CHAO XUE\CHAO XUE_Export\06.28.2022-1205PM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\CONTROL SOLIDOS SNP-168\CONTROL SOLIDOS SNP-168_Export\07.18.2022-1130AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\COORDINACION FLUIDOS LAG\COORDINACION FLUIDOS LAG_Export\07.07.2022-1245PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\COORDINADOR FLUIDOS TAMBOCOCHA\COORDINADOR FLUIDOS TAMBOCOCHA_Export\07.08.2022-1000AM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\Coordinador Logistico Lago\Coordinador Logistico Lago_Export\07.08.2022-1030AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\COORDINADOR RIG-119\COORDINADOR RIG-119_Export\07.25.2022-1548PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\COORDINADOR RIG-169\COORDINADOR RIG-169_Export\07.25.2022-0851AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\DANIELA TORRES\DANIELA TORRES_Export\06.28.2022-0919AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\DAVID BENITEZ\DAVID BENITEZ_Export\07.07.2022-1204PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\DIANA PE&#209;AHERRERA\Diana Pe&#241;aherrera_Export\06.09.2022-1543PM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\DIANA PE&#209;AHERRERA\Diana Pe&#241;aherrera_Export\Temp</td><td></td><td>1</td></tr> <tr><td>D:\DIANA PE&#209;AHERRERA\OneDrive - SERVICIOS INTEGRADOS PA&#209;ATURI S.A\00. CAMPO</td><td>.pdf</td><td>7</td></tr> <tr><td>D:\DIANA PE&#209;AHERRERA\OneDrive - SERVICIOS INTEGRADOS PA&#209;ATURI S.A\00. SIP - Pa&#241;aturi</td><td>.docx</td><td>2</td></tr> <tr><td>D:\DIANA PE&#209;AHERRERA\OneDrive - SERVICIOS INTEGRADOS PA&#209;ATURI S.A\51. PMA</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\DIANA PE&#209;AHERRERA\OneDrive - SERVICIOS INTEGRADOS PA&#209;ATURI S.A\ESCRITORIO</td><td>.docx</td><td>7</td></tr> <tr><td>D:\DIANA PE&#209;AHERRERA\OneDrive - SERVICIOS INTEGRADOS PA&#209;ATURI S.A\QUITO</td><td>.docx</td><td>5</td></tr> <tr><td>D:\DIANA PE&#209;AHERRERA\OneDrive - SERVICIOS INTEGRADOS PA&#209;ATURI S.A\TICKETS HSE TELETRABAJO</td><td>.ini</td><td>1</td></tr> <tr><td>D:\DIEGO RIVERA</td><td>.rar</td><td>1</td></tr> <tr><td>D:\DIEGO RIVERA\RESPALDOS SINOPEC</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\DOCTOR LAGO AGRIO\DOCTOR LAGO AGRIO_Export\07.11.2022-1137AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\DOCTOR RIG-119\DOCTOR RIG-119_Export\07.25.2022-0852AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\DOCTOR RIG-169\DOCTOR RIG-169_Export\07.25.2022-0854AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\FERNANDO DC\Fernando DC_Export\06.14.2022-1505PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\Fluidos RIG-185\Fluidos RIG-185_Export\07.25.2022-0857AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\FU XINGYUAN\FU XINGYUAN_Export\07.25.2022-0859AM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\CVS Chinitos</td><td>.doc</td><td>1</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Documentos informaci&#243;n empresarial</td><td>.pdf</td><td>8</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Formatos</td><td>.xlsx</td><td>10</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Fotos Oficina</td><td>.jpg</td><td>3</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Fotos visa</td><td>.jpg</td><td>3</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Fulbright</td><td>.docx</td><td>5</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Gaby</td><td>.docx</td><td>1</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Hoteles</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Inventarios</td><td>.xlsx</td><td>3</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Logo</td><td>.ai</td><td>1</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Navidad 2014</td><td>.docx</td><td>2</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Navidad 2015</td><td>.xlsx</td><td>1</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Office Supplies</td><td>.xlsx</td><td>1</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\PASAPORTES</td><td>.pdf</td><td>14</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Pa&#241;aturi images</td><td>.jpg</td><td>3</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Personal</td><td>.jpg</td><td>8</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Petty cash</td><td>.xlsx</td><td>6</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Procedures</td><td>.docx</td><td>20</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Reportes</td><td>.docx</td><td>1</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\RUC</td><td>.pdf</td><td>3</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Seguros</td><td>.xlsx</td><td>1</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\TI</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Tourism</td><td>.pptx</td><td>2</td></tr> <tr><td>D:\GABY RUIZ\DISCO D\Vuelos</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\GABY RUIZ\Escritorio</td><td>.xlsx</td><td>27</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\Buenas cadenas</td><td>.pps</td><td>2</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\CUMPLEA&#209;OS</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\C&#211;DIGOS EMPLEADOS</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\Delegaci&#243;n Ago 15</td><td>.jpg</td><td>444</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\fiesta</td><td>.jpg</td><td>72</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\inventario casa braca</td><td>.jpg</td><td>23</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\Inventario ste</td><td>.jpg</td><td>48</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\NEWS</td><td>.jpg</td><td>3</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\Retratos</td><td>.jpg</td><td>13</td></tr> <tr><td>D:\GABY RUIZ\Escritorio\Wallpapers</td><td>.jpg</td><td>8</td></tr> <tr><td>D:\GABY RUIZ\Gaby Ruiz\06.26.2019-1432PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\Geng Hongjun_Export\03.08.2023-1629PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\Geng Hongjun_Export\03.08.2023-1629PM\Exchange</td><td>.pst</td><td>2</td></tr> <tr><td>D:\GUIDO SA&#209;AICELA\GUIDO SA&#209;AICELA_Export\07.08.2022-1032AM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\GUOHUA LI\GUOHUA LI_Export\07.26.2022-0912AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\Heberto Cardozo\Heberto Cardozo_Export\07.07.2022-1346PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\HSE 3299\HSE 3299_Export\07.11.2022-1304PM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\HSE RIG-119\HSE RIG-119_Export\07.26.2022-0948AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\HSE RIG-169\HSE RIG-169_Export\07.27.2022-0845AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\Inti Piso 12\Inti Piso 12_Export\07.27.2022-0850AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\IRENE MONTENEGRO\IRENE MONTENEGRO_Export\07.07.2022-1347PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\IVAN MOLINA\IVAN MOLINA_Export\07.12.2022-1230PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\Jaime Garzon_Export\03.02.2023-0757AM\Exchange</td><td>.pst</td><td>6</td></tr> <tr><td>D:\JORGE CACERES\JORGE CACERES_Export\07.07.2022-1352PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\JORGE DUTAN\JORGE DUTAN_Export\07.27.2022-0851AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\JOSE GOMEZ\JOSE GOMEZ_Export\07.27.2022-0855AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\Karla Fernandez\Karla Fernandez_Export\07.29.2022-1508PM</td><td>.csv</td><td>5</td></tr> <tr><td>D:\KATHERINE LOPEZ</td><td>.pdf</td><td>9</td></tr> <tr><td>D:\KATHERINE LOPEZ\Crack</td><td>.txt</td><td>1</td></tr> <tr><td>D:\KATHERINE LOPEZ\CV PARA SACHA</td><td>.pdf</td><td>7</td></tr> <tr><td>D:\KATHERINE LOPEZ\HALLIBURTON\PROPUESTA TECNICA HALLIBURTON</td><td>.docx</td><td>1</td></tr> <tr><td>D:\KATHERINE LOPEZ\no conformidades Wayra</td><td>.docx</td><td>1</td></tr> <tr><td>D:\KATHERINE LOPEZ\PAGOS</td><td>.pdf</td><td>39</td></tr> <tr><td>D:\KATHERINE LOPEZ\PAGOS\ADENDUM</td><td>.pdf</td><td>4</td></tr> <tr><td>D:\KATHERINE LOPEZ\PAGOS\JUNIO</td><td>.pdf</td><td>2</td></tr> <tr><td>D:\KATHERINE LOPEZ\PAGOS\Nueva carpeta</td><td>.pdf</td><td>73</td></tr> <tr><td>D:\KATHERINE LOPEZ\PARAMETROS YRCA-022</td><td>.db</td><td>1</td></tr> <tr><td>D:\KATHERINE LOPEZ\PEDIDOS DE SUMINISTROS</td><td>.xlsx</td><td>1</td></tr> <tr><td>D:\KATHERINE LOPEZ\petrosur</td><td>.pdf</td><td>6</td></tr> <tr><td>D:\KATHERINE LOPEZ\petrosur\EQUIPOS Y SENSORES OFERTADOS</td><td>.pdf</td><td>2</td></tr> <tr><td>D:\KATHERINE LOPEZ\petrosur\FORMATO RESUMEN T&#201;CNICO CONTROL LITOLOGICO</td><td>.xlsx</td><td>2</td></tr> <tr><td>D:\KATHERINE LOPEZ\petrosur\MANTENIMIENTO DE SENSORES</td><td>.rar</td><td>1</td></tr> <tr><td>D:\KATHERINE LOPEZ\petrosur\Reporte Diario</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\KATHERINE LOPEZ\POZOS</td><td>.pdf</td><td>5</td></tr> <tr><td>D:\KATHERINE LOPEZ\POZOS\CD FINAL TPTD-089</td><td>.pdf</td><td>1</td></tr> <tr><td>D:\KATHERINE LOPEZ\POZOS\INGLES PHRA&#39;033</td><td>.xls</td><td>6</td></tr> <tr><td>D:\KATHERINE LOPEZ\POZOS\POZOS WAYRA</td><td>.pdf</td><td>13</td></tr> <tr><td>D:\KATHERINE LOPEZ\presentaciones</td><td>.pptx</td><td>4</td></tr> <tr><td>D:\KATHERINE LOPEZ\presentaciones\DD INTREPID &amp; SLB</td><td>.msg</td><td>1</td></tr> <tr><td>D:\KATHERINE LOPEZ\presentaciones\GYRO DATA</td><td>.pptx</td><td>3</td></tr> <tr><td>D:\KATHERINE LOPEZ\presentaciones\GYRO DATA JP</td><td>.pptx</td><td>4</td></tr> <tr><td>D:\KATHERINE LOPEZ\presentaciones\Nueva carpeta</td><td>.pptx</td><td>3</td></tr> <tr><td>D:\KATHERINE LOPEZ\presentaciones\REGISTROS SPT</td><td>.pptx</td><td>1</td></tr> <tr><td>D:\KATHERINE LOPEZ\YRCA-024R1-SNP-REPORTE FINAL DE GEOLOGIA\YRCA 024 R1-SNP-MASTERLOG PDF FINALES</td><td>.pdf</td><td>6</td></tr> <tr><td>D:\KATHERINE LOPEZ\YRCA-024R1-SNP-REPORTE FINAL DE GEOLOGIA\YRCA-024R1-SNP-DRILLING PARAMETERS</td><td>.txt</td><td>1</td></tr> <tr><td>D:\KATHERINE LOPEZ\YRCA-024R1-SNP-REPORTE FINAL DE GEOLOGIA\YRCA-024R1-SNP-REPORTE FINAL</td><td>.docx</td><td>1</td></tr> <tr><td>D:\Killa Piso 10\Killa Piso 10_Export\07.29.2022-1502PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\Leonardo Llanos\Leonardo Llanos_Export\07.12.2022-1427PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\Leonardo Llanos_Export\03.08.2023-1630PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\Leonardo Llanos_Export\03.08.2023-1630PM\Exchange</td><td>.pst</td><td>1</td></tr> <tr><td>D:\LI ZEPEI\LI ZEPEI_Export\08.01.2022-0926AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\LIU CHAO\LIU CHAO_Export\08.01.2022-0922AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\LIU JIANGTAO\LIU JIANGTAO_Export\08.01.2022-0923AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\LUIS ORTIZ\LUIS ORTIZ_Export\08.02.2022-1442PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\LUNBING PU\LUNBING PU_Export\08.03.2022-0951AM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\MANUEL SOLANO\MANUEL SOLANO_Export\08.02.2022-1509PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\MARCO GONZALEZ\MARCO GONZALEZ_Export\08.02.2022-1508PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\Meeting Room 7th\Meeting Room 7th_Export\08.02.2022-1502PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\Meeting Room 8vo\Meeting Room 8vo_Export\08.02.2022-1500PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\MINGXIN YANG\MINGXIN YANG_Export\07.22.2022-0929AM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\MUDLOGGING-543\MUDLOGGING-543_Export\07.21.2022-1318PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\MUDLOGGING-549\MUDLOGGING-549_Export\07.22.2022-0927AM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\MUDLOGGING-550\MUDLOGGING-550_Export\07.22.2022-0923AM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\MUDLOGGING-551\MUDLOGGING-551_Export\07.21.2022-1037AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\MUDLOGGING-551B\MUDLOGGING-551B_Export\07.21.2022-1211PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\MUDLOGGING-66\MUDLOGGING-66_Export\07.21.2022-1028AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\Pachamama Piso 11\Pachamama Piso 11_Export\07.21.2022-1019AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PAMELA LORA\PAMELA LORA_Export\07.20.2022-1547PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\PA&#209;ATURI\Andres Ortega_Export\Temp</td><td>.db</td><td>1</td></tr> <tr><td>D:\PA&#209;ATURI\Angel Paguay_Export\03.03.2023-1040AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Carlos Pineda_Export\03.03.2023-1047AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Christian Villacres_Export\03.07.2023-1646PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Cristian Mantilla_Export\03.03.2023-1637PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Francisco Anaguano_Export\03.03.2023-1632PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Francisco Verduga_Export\Temp</td><td>.db</td><td>1</td></tr> <tr><td>D:\PA&#209;ATURI\Gabriel Solorzano_Export\03.06.2023-1906PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Giovanny Aleman_Export\03.07.2023-1057AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Gu Li_Export\Temp</td><td>.db</td><td>1</td></tr> <tr><td>D:\PA&#209;ATURI\Han Qiang_Export\03.07.2023-1057AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Hu Peining_Export\03.07.2023-1110AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Jorge Herrera_Export\03.07.2023-2220PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Juan Pablo Alcoser_Export\03.07.2023-2220PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Julio Pinos_Export\03.07.2023-1423PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Legal Support_Export\03.07.2023-1424PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Li Chen_Export\03.08.2023-0827AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Liu Dekun_Export\03.08.2023-0828AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Luis Gomez_Export\03.07.2023-1430PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Luis Moya_Export\03.07.2023-1434PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Mauricio Armas_Export\03.07.2023-1435PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Mauricio Palacios_Export\03.07.2023-1501PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Meybol Vinueza_Export\03.07.2023-1502PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Omar Navarrete_Export\03.08.2023-0924AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Operaciones_Export\03.07.2023-1525PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Oscar Galarza_Export\03.07.2023-1526PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Pamela Moya_Export\03.07.2023-1549PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Paulo Viteri_Export\03.07.2023-1550PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Pedro Sanchez_Export\03.07.2023-1604PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Sandra Duran_Export\03.07.2023-1604PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Zhang Jixin_Export\03.07.2023-1640PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PA&#209;ATURI\Zhang Xueliang_Export\03.08.2023-0928AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\PROYECTOR PORTATIL\PROYECTOR PORTATIL_Export\07.20.2022-1541PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\QC 3299\QC 3299_Export\07.20.2022-1540PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\QING LIU\QING LIU_Export\07.22.2022-0918AM</td><td>.csv</td><td>5</td></tr> <tr><td>D:\RESPALDO ONE DRIVE\33. BACKUP ONE DRIVE MEYBOL VINUEZA</td><td>.zip</td><td>1</td></tr> <tr><td>D:\RESPALDO ONE DRIVE\48. BACKUP ONE DRIVE MICHELLE VASCONEZ</td><td>.zip</td><td>1</td></tr> <tr><td>D:\ROQUE PEREZ\ROQUE PEREZ_Export\07.20.2022-0841AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\RR CC 3299\RR CC 3299_Export\07.20.2022-0840AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\Sala Piso 9\Sala Piso 9_Export\07.20.2022-0838AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\Shao Jun\Shao Jun_Export\07.19.2022-0838AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\SHEN YUNXUE\SHEN YUNXUE_Export\07.18.2022-1117AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\SINOPEC FLUIDOS\SINOPEC FLUIDOS_Export\07.19.2022-0836AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\SINOPEC FLUIDOS 127\SINOPEC FLUIDOS 127_Export\07.18.2022-1101AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\SINOPEC FLUIDOS 183\SINOPEC FLUIDOS 183_Export\07.18.2022-1115AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\SINOPEC RIPIOS\SINOPEC RIPIOS_Export\07.15.2022-1622PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\SOLIDOS 650 RIG-36\SOLIDOS 650 RIG-36_Export\07.15.2022-1619PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\SUPERVISOR CRI\SUPERVISOR CRI_Export\07.15.2022-1617PM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\TOOLPUSHER RIG-119\TOOLPUSHER RIG-119_Export\07.15.2022-1615PM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\TOOLPUSHER RIG-169\TOOLPUSHER RIG-169_Export\07.15.2022-1025AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\WANG CHENCHENG\WANG CHENCHENG_Export\07.15.2022-1024AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\WANG CHENLIANG\WANG CHENLIANG_Export\07.15.2022-1018AM</td><td>.csv</td><td>3</td></tr> <tr><td>D:\WANG KAI\WANG KAI_Export\07.15.2022-0917AM</td><td>.csv</td><td>4</td></tr> <tr><td>D:\WASHINGTON ANDRANGO\WASHINGTON ANDRANGO_Export\07.14.2022-1632PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\XAVIER RAMOS\XAVIER RAMOS_Export\07.14.2022-0840AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\XUELIANG ZHANG\XUELIANG ZHANG_Export\07.14.2022-1631PM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\Yaku Piso 11\Yaku Piso 11_Export\07.14.2022-1113AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\YANG GUANG\YANG GUANG_Export\07.14.2022-1101AM</td><td>.csv</td><td>2</td></tr> <tr><td>D:\ZHANG YAHONG\ZHANG YAHONG_Export\07.08.2022-1533PM</td><td>.csv</td><td>3</td></tr> </table>
+</div>
+</div>
 </section>
 
 <script>
-// ==========================
-// 🌙 CAMBIO DE TEMA
-// ==========================
-function toggleTheme(){
-    document.body.classList.toggle("dark");
-    localStorage.setItem("modo", document.body.classList.contains("dark") ? "oscuro" : "claro");
-}
-
-// Mantener preferencia
-if(localStorage.getItem("modo")==="oscuro"){
-    document.body.classList.add("dark");
-}
-
-// ==========================
-// 📥 CARGAR JSON GENERADO DESDE POWERSHELL
-// ==========================
-fetch("data.json") // <<--- TU JSON DE POWERSHELL
-    .then(r => r.json())
-    .then(data => {
-        cargarResumen(data.resumen);
-        cargarTabla("tablaTop", data.top10);
-        cargarTabla("tablaGrandes", data.archivosGrandes);
-        cargarTabla("tablaAntiguos", data.archivosAntiguos);
-        crearGraficos(data);
-    });
-
-// ==========================
-// 🟦 CARGAR RESUMEN
-// ==========================
-function cargarResumen(r){
-    document.getElementById("resumen").innerHTML = `
-        <div class='summary-box'>Archivos analizados<br><b>${r.archivos}</b></div>
-        <div class='summary-box'>Espacio usado<br><b>${r.usado} GB</b></div>
-        <div class='summary-box'>Espacio libre<br><b>${r.libre} GB</b></div>
-        <div class='summary-box'>Estado disco<br><b>${r.estado}</b></div>
-    `;
-}
-
-// ==========================
-// 🟩 CARGAR TABLAS
-// ==========================
-function cargarTabla(id, filas){
-    let t = document.getElementById(id);
-    filas.forEach(f => {
-        let tr = "<tr>";
-        for(let v of Object.values(f)){
-            tr += `<td>${v}</td>`;
+// Gráfico de espacio
+var ctx = document.getElementById('chartEspacio');
+new Chart(ctx, {
+  type: 'doughnut',
+  data: {
+    labels: ['Usado (GB)', 'Libre (GB)'],
+    datasets: [{
+      data: [1819.07, 43.94],
+      backgroundColor: ['#e74c3c', '#2ecc71'],
+      borderWidth: 0
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: {
+        position: 'bottom',
+        labels: {
+          padding: 15,
+          font: { size: 14 }
         }
-        tr += "</tr>";
-        t.innerHTML += tr;
-    });
-}
+      }
+    }
+  }
+});
 
-// ==========================
-// 📊 GRAFICOS CHART.JS
-// ==========================
-function crearGraficos(data){
+// Gráfico de años
+var años = [
+  {"Año":"2017","Cantidad":26},
+  {"Año":"2018","Cantidad":170},
+  {"Año":"2019","Cantidad":1797},
+  {"Año":"2020","Cantidad":128},
+  {"Año":"2021","Cantidad":2},
+  {"Año":"2022","Cantidad":873},
+  {"Año":"2023","Cantidad":140},
+  {"Año":"2024","Cantidad":3},
+  {"Año":"2025","Cantidad":2}
+];
 
-    // Uso del disco
-    new Chart(document.getElementById("chartEspacio"), {
-        type: "pie",
-        data: {
-            labels: ["Usado", "Libre"],
-            datasets: [{
-                data: [data.resumen.usado, data.resumen.libre]
-            }]
+var ctx2 = document.getElementById('chartAnios');
+new Chart(ctx2, {
+  type: 'bar',
+  data: {
+    labels: años.map(a => a.Año),
+    datasets: [{
+      label: 'Cantidad de archivos',
+      data: años.map(a => a.Cantidad),
+      backgroundColor: '#3498db',
+      borderRadius: 6
+    }]
+  },
+  options: {
+    responsive: true,
+    maintainAspectRatio: true,
+    plugins: {
+      legend: { display: false }
+    },
+    scales: {
+      y: {
+        beginAtZero: true,
+        grid: {
+          color: 'rgba(0, 0, 0, 0.05)'
         }
-    });
-
-    // Archivos por año
-    new Chart(document.getElementById("chartAnios"), {
-        type: "bar",
-        data: {
-            labels: data.anios.labels,
-            datasets: [{
-                label: "Cantidad",
-                data: data.anios.valores
-            }]
+      },
+      x: {
+        grid: {
+          display: false
         }
-    });
-}
+      }
+    }
+  }
+});
 </script>
+
 </body>
 </html>
