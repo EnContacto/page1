@@ -1,252 +1,201 @@
-<!DOCTYPE html>
-<html lang="es">
+<html>
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Informe de Análisis de Disco</title>
-
-<!-- Fuente y estilos -->
-<style>
-    body {
-        font-family: Arial, sans-serif;
-        margin: 20px;
-        background: var(--bg);
-        color: var(--text);
-        transition: background 0.3s, color 0.3s;
-    }
-
-    :root {
-        --bg: #ffffff;
-        --text: #000000;
-        --card-bg: #f9f9f9;
-        --border: #ddd;
-    }
-
-    .dark {
-        --bg: #121212;
-        --text: #e0e0e0;
-        --card-bg: #1e1e1e;
-        --border: #333;
-    }
-
-    .container {
-        max-width: 1200px;
-        margin: auto;
-    }
-
-    h1 {
-        text-align: center;
-    }
-
-    table {
-        width: 100%;
-        border-collapse: collapse;
-        margin-top: 20px;
-        background: var(--card-bg);
-    }
-
-    th, td {
-        border: 1px solid var(--border);
-        padding: 10px;
-        text-align: left;
-    }
-
-    th {
-        cursor: pointer;
-        background: #007bff33;
-    }
-
-    input[type="text"] {
-        padding: 10px;
-        width: 300px;
-        margin-top: 10px;
-        border: 1px solid var(--border);
-        background: var(--card-bg);
-        color: var(--text);
-    }
-
-    button {
-        padding: 10px 15px;
-        background: #007bff;
-        color: #fff;
-        border: none;
-        cursor: pointer;
-        margin: 10px 0;
-    }
-
-    button:hover {
-        opacity: 0.9;
-    }
-
-    /* Responsive */
-    @media (max-width: 768px) {
-        table, thead, tbody, tr, th, td {
-            display: block;
-        }
-
-        th {
-            position: sticky;
-            top: 0;
-        }
-    }
-</style>
-
+<title>Informe de D:\</title>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+<style>
+body{
+    font-family:'Segoe UI',Arial;margin:0;
+    background:#eef1f5;color:#333;
+    transition:0.3s;
+}
+
+body.dark{
+    background:#1e1e1e;
+    color:#e0e0e0;
+}
+
+header{
+    background:#2c3e50;color:white;padding:25px;text-align:center
+}
+
+body.dark header{
+    background:#111;
+}
+
+.card{
+    background:white;padding:25px;margin-bottom:30px;border-radius:12px;
+    box-shadow:0 4px 12px rgba(0,0,0,0.1);transition:0.3s;
+}
+
+body.dark .card{
+    background:#2b2b2b;
+    color:white;
+    box-shadow:0 4px 12px rgba(255,255,255,0.05);
+}
+
+table{width:100%;border-collapse:collapse;margin-top:15px}
+th{
+    background:#34495e;color:white;padding:8px
+}
+body.dark th{
+    background:#000;
+}
+
+td{
+    background:white;padding:8px;border-bottom:1px solid #ddd
+}
+body.dark td{
+    background:#3a3a3a;border-bottom:1px solid #555;
+}
+
+.summary-box{
+    background:#34495e;color:white;padding:20px;border-radius:10px;font-size:18px
+}
+body.dark .summary-box{
+    background:#000;
+}
+
+.theme-btn{
+    position:fixed;top:15px;right:15px;
+    padding:10px 18px;font-size:15px;
+    border:none;border-radius:8px;
+    background:#3498db;color:white;
+    cursor:pointer;transition:0.3s;
+}
+</style>
 </head>
 <body>
 
-<div class="container">
+<button class="theme-btn" onclick="toggleTheme()">🌙/☀️ Tema</button>
 
-<h1>📊 Informe de Análisis de Disco</h1>
+<header>
+<h1>Informe-Análisis: TOSHIBA-EXT</h1>
+</header>
 
-<button onclick="toggleTheme()">Cambiar tema 🌙/☀️</button>
-
-<h2>Cargar datos del informe</h2>
-<button onclick="cargarDatos()">Cargar información desde data.json</button>
-
-<h3>Buscar</h3>
-<input type="text" id="buscador" placeholder="Buscar en la tabla..." onkeyup="filtrarTabla()">
-
-<table id="tablaDatos">
-    <thead>
-        <tr>
-            <th onclick="ordenarTabla(0)">Carpeta</th>
-            <th onclick="ordenarTabla(1)">Tamaño (GB)</th>
-            <th onclick="ordenarTabla(2)">Archivos</th>
-            <th onclick="ordenarTabla(3)">Subcarpetas</th>
-            <th onclick="ordenarTabla(4)">Última modificación</th>
-        </tr>
-    </thead>
-    <tbody></tbody>
-</table>
-
-<h2>Gráficos</h2>
-<canvas id="chart"></canvas>
-
+<section>
+<div class='card'>
+<h2>Resumen General</h2>
+<div id="resumen" class='summary-grid'>
+<!-- Se llenará con JSON -->
+</div>
 </div>
 
+<div class='card'>
+<h2>Uso del disco</h2>
+<canvas id='chartEspacio'></canvas>
+</div>
+
+<div class='card'>
+<h2>Distribución de archivos por año</h2>
+<canvas id='chartAnios'></canvas>
+</div>
+
+<div class='card'>
+<h2>Top 10 carpetas más pesadas</h2>
+<table id="tablaTop">
+<tr><th>Carpeta</th><th>TotalMB</th></tr>
+</table>
+</div>
+
+<div class='card'>
+<h2>Archivos grandes (>100MB)</h2>
+<table id="tablaGrandes">
+<tr><th>Ruta Archivo</th><th>Nivel</th><th>TamañoMB</th><th>Creado</th><th>Año</th><th>Carpeta</th><th>Ext</th></tr>
+</table>
+</div>
+
+<div class='card'>
+<h2>Archivos antiguos (>8 años)</h2>
+<table id="tablaAntiguos">
+<tr><th>Ruta Archivo</th><th>Nivel</th><th>TamañoMB</th><th>Creado</th><th>Año</th><th>Carpeta</th><th>Ext</th></tr>
+</table>
+</div>
+
+</section>
+
 <script>
-// =========================
-// MODO CLARO / OSCURO
-// =========================
-document.addEventListener("DOMContentLoaded", () => {
-    if (localStorage.getItem("tema") === "dark") {
-        document.body.classList.add("dark");
-    }
-});
-
-function toggleTheme() {
+// ==========================
+// 🌙 CAMBIO DE TEMA
+// ==========================
+function toggleTheme(){
     document.body.classList.toggle("dark");
-    localStorage.setItem("tema",
-        document.body.classList.contains("dark") ? "dark" : "light"
-    );
+    localStorage.setItem("modo", document.body.classList.contains("dark") ? "oscuro" : "claro");
 }
 
-// =========================
-// CARGAR DATOS DESDE JSON
-// =========================
-async function cargarDatos() {
-    try {
-        const response = await fetch("data.json");
-        const data = await response.json();
-
-        const tbody = document.querySelector("#tablaDatos tbody");
-        tbody.innerHTML = "";
-
-        data.carpetas.forEach(item => {
-            let fila = `
-                <tr>
-                    <td>${item.nombre}</td>
-                    <td>${item.tamanoGB}</td>
-                    <td>${item.archivos}</td>
-                    <td>${item.subcarpetas}</td>
-                    <td>${item.ultimaModificacion}</td>
-                </tr>
-            `;
-            tbody.innerHTML += fila;
-        });
-
-        generarGrafico(data);
-    } catch (error) {
-        alert("No se pudo cargar el archivo JSON");
-    }
+// Mantener preferencia
+if(localStorage.getItem("modo")==="oscuro"){
+    document.body.classList.add("dark");
 }
 
-// =========================
-// FILTRO DE BÚSQUEDA
-// =========================
-function filtrarTabla() {
-    const input = document.getElementById("buscador").value.toLowerCase();
-    const rows = document.querySelectorAll("#tablaDatos tbody tr");
+// ==========================
+// 📥 CARGAR JSON GENERADO DESDE POWERSHELL
+// ==========================
+fetch("data.json") // <<--- TU JSON DE POWERSHELL
+    .then(r => r.json())
+    .then(data => {
+        cargarResumen(data.resumen);
+        cargarTabla("tablaTop", data.top10);
+        cargarTabla("tablaGrandes", data.archivosGrandes);
+        cargarTabla("tablaAntiguos", data.archivosAntiguos);
+        crearGraficos(data);
+    });
 
-    rows.forEach(row => {
-        const match = [...row.children].some(td =>
-            td.textContent.toLowerCase().includes(input)
-        );
-        row.style.display = match ? "" : "none";
+// ==========================
+// 🟦 CARGAR RESUMEN
+// ==========================
+function cargarResumen(r){
+    document.getElementById("resumen").innerHTML = `
+        <div class='summary-box'>Archivos analizados<br><b>${r.archivos}</b></div>
+        <div class='summary-box'>Espacio usado<br><b>${r.usado} GB</b></div>
+        <div class='summary-box'>Espacio libre<br><b>${r.libre} GB</b></div>
+        <div class='summary-box'>Estado disco<br><b>${r.estado}</b></div>
+    `;
+}
+
+// ==========================
+// 🟩 CARGAR TABLAS
+// ==========================
+function cargarTabla(id, filas){
+    let t = document.getElementById(id);
+    filas.forEach(f => {
+        let tr = "<tr>";
+        for(let v of Object.values(f)){
+            tr += `<td>${v}</td>`;
+        }
+        tr += "</tr>";
+        t.innerHTML += tr;
     });
 }
 
-// =========================
-// ORDENAMIENTO DE TABLAS
-// =========================
-let sortAsc = true;
+// ==========================
+// 📊 GRAFICOS CHART.JS
+// ==========================
+function crearGraficos(data){
 
-function ordenarTabla(colIndex) {
-    const tbody = document.querySelector("#tablaDatos tbody");
-    const rows = Array.from(tbody.querySelectorAll("tr"));
-
-    rows.sort((a, b) => {
-        const valA = a.children[colIndex].textContent.trim();
-        const valB = b.children[colIndex].textContent.trim();
-
-        return sortAsc
-            ? valA.localeCompare(valB, undefined, { numeric: true })
-            : valB.localeCompare(valA, undefined, { numeric: true });
+    // Uso del disco
+    new Chart(document.getElementById("chartEspacio"), {
+        type: "pie",
+        data: {
+            labels: ["Usado", "Libre"],
+            datasets: [{
+                data: [data.resumen.usado, data.resumen.libre]
+            }]
+        }
     });
 
-    sortAsc = !sortAsc;
-
-    tbody.innerHTML = "";
-    rows.forEach(row => tbody.appendChild(row));
-}
-
-// =========================
-// GRÁFICOS MEJORADOS
-// =========================
-let chart;
-
-function generarGrafico(data) {
-    const nombres = data.carpetas.map(x => x.nombre);
-    const tamanos = data.carpetas.map(x => x.tamanoGB);
-
-    const ctx = document.getElementById("chart");
-
-    if (chart) chart.destroy();
-
-    chart = new Chart(ctx, {
+    // Archivos por año
+    new Chart(document.getElementById("chartAnios"), {
         type: "bar",
         data: {
-            labels: nombres,
+            labels: data.anios.labels,
             datasets: [{
-                label: "Tamaño (GB)",
-                data: tamanos
+                label: "Cantidad",
+                data: data.anios.valores
             }]
-        },
-        options: {
-            responsive: true,
-            plugins: {
-                tooltip: {
-                    callbacks: {
-                        label: info => ` ${info.raw} GB`
-                    }
-                }
-            }
         }
     });
 }
 </script>
-
 </body>
 </html>
